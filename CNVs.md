@@ -85,14 +85,15 @@ for (i in 1:nsamples) {
                     test = ExomeCount.mat[,i],
                     reference = my.reference.selected,
                     formula = 'cbind(test, reference) ~ 1')
-  ################ Now call the CNVs
+                    
+  # Now call the CNVs
   all.exons <- CallCNVs(x = all.exons,
                         transition.probability = 10^-4,
                         chromosome = ExomeCount.dafr$space,
                         start = ExomeCount.dafr$start,
                         end = ExomeCount.dafr$end,
                         name = ExomeCount.dafr$names)
-  ########################### Now annotate the ExomeDepth object
+  # Now annotate the ExomeDepth object
   all.exons <- AnnotateExtra(x = all.exons,
                              reference.annotation = Conrad.hg19.common.CNVs,
                              min.overlap = 0.5,
