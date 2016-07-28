@@ -3,7 +3,7 @@ PhD Scripts
 
 
 
-### this is to be used on the cluster (I think this is the best option):
+### This is to be used on the cluster:
 /share/apps/R/bin/R
 library(ExomeDepth, '~/R/x86_64-unknown-linux-gnu-library/3.1')
 
