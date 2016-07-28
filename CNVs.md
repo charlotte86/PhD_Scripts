@@ -1,7 +1,9 @@
 # PhD_Scripts
 PhD Scripts
 
-### this is to be used on the cluster:
+
+
+### this is to be used on the cluster (I think this is the best option):
 /share/apps/R/bin/R
 library(ExomeDepth, '~/R/x86_64-unknown-linux-gnu-library/3.1')
 
@@ -47,6 +49,7 @@ ExomeCount.dafr$chromosome <- gsub(as.character(ExomeCount.dafr$space),
 
 
 #### get the annotation datasets to be used later
+
 data(Conrad.hg19)
 head(Conrad.hg19.common.CNVs)
 
@@ -71,8 +74,11 @@ nsamples <- ncol(ExomeCount.mat)
 
 
 ### start looping over each sample
+
 for (i in 1:nsamples) {
-  #### Create the aggregate reference set for this sample
+ 
+   #### Create the aggregate reference set for this sample
+  
   my.choice <- select.reference.set (test.counts = ExomeCount.mat[,i],
                                      reference.counts = ExomeCount.mat[,-i],
                                      bin.length = (ExomeCount.dafr$end - ExomeCount.dafr$start)/1000,
@@ -85,15 +91,18 @@ for (i in 1:nsamples) {
                     test = ExomeCount.mat[,i],
                     reference = my.reference.selected,
                     formula = 'cbind(test, reference) ~ 1')
-                    
-  # Now call the CNVs
+  
+  ################ Now call the CNVs
+  
   all.exons <- CallCNVs(x = all.exons,
                         transition.probability = 10^-4,
                         chromosome = ExomeCount.dafr$space,
                         start = ExomeCount.dafr$start,
                         end = ExomeCount.dafr$end,
                         name = ExomeCount.dafr$names)
-  # Now annotate the ExomeDepth object
+  
+  ########################### Now annotate the ExomeDepth object
+  
   all.exons <- AnnotateExtra(x = all.exons,
                              reference.annotation = Conrad.hg19.common.CNVs,
                              min.overlap = 0.5,
@@ -129,3 +138,9 @@ all.exons <- AnnotateExtra(x = all.exons,
                            reference.annotation = exons.hg19.GRanges,
                            min.overlap = 0.0001,
                            column.name = 'exons.hg19')
+
+
+
+
+
+
