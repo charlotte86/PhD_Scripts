@@ -1,8 +1,6 @@
 # this script is for running a gene burden test on missense and LOF variants between ARVC probands and ExAC database
 
 
-
-
 ### load the cases dataset (this contains a count of rare and novel variants according to ESP frequencies, per gene)
 
 arvc_cases <- read.table ("//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/ARVC_probands_missense_and_lof.txt", header = TRUE, fill = TRUE)
