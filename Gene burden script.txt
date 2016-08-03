@@ -1,4 +1,4 @@
-# this script is for running a gene burden test on missense and LOF variants (stop_gain only) between ARVC probands and ExAC database
+# this script is for running a gene burden test on missense and LOF variants between ARVC probands and ExAC database
 
 
 
