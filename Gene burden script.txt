@@ -40,4 +40,4 @@ combined <- combined[order(combined$my.p), ]
 
 #### save results in csv file
 
-write.csv(combined, "//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/ARVC_analysis/pvalues_missense_lof_arvc_vs_exac.csv")
+write.csv(combined, "/Users/Charlotte/Desktop/ARVC_analysis/pvalues_missense_lof_arvc_vs_exac.csv")
