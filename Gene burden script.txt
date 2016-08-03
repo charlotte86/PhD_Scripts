@@ -1,0 +1,45 @@
+# this script is for running a gene burden test on missense and LOF variants (stop_gain only) between ARVC probands and ExAC database
+## the datasets were already filtered for LOF and frequency using VEP software
+
+
+
+### load the cases dataset (this contains a count of rare and novel variants according to ESP frequencies, per gene)
+
+arvc_cases <- read.table ("//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/ARVC_probands_missense_and_lof.txt", header = TRUE, fill = TRUE)
+
+#### now load the controls (note that the data is in different format)
+
+controls <- read.table("//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/EXAC_rare_novel_missense_for_R4.txt", header = TRUE, fill = TRUE, row.names=NULL)
+
+#### count LOF variants per each gene for cases and controls
+
+my.count.cases <- tapply(arvc_cases$AC, IND = arvc_cases$Gene, FUN = sum)
+
+my.count.controls <- tapply(controls$AC, IND = controls$Gene, FUN = sum)
+
+#### build a dataframe for cases/controls
+
+my.frame <- data.frame(gene = names(my.count.cases), 
+                       count.cases = as.numeric(my.count.cases))
+
+my.frame.temp <- data.frame(gene = names(my.count.controls),
+                            count.controls = as.numeric(my.count.controls))
+
+#### combine the variant counts for cases/controls into a one table
+
+combined <- merge(my.frame, my.frame.temp, by ='gene', all= TRUE)
+combined$count.cases <- ifelse (is.na(combined$count.cases), 0, combined$count.cases)
+combined$count.controls <- ifelse (is.na(combined$count.controls), 0, combined$count.controls)
+
+#### build a matrix for chi square (or binomial) calculations  Update the sample numbers if necessary.
+
+my.mat <- as.matrix(combined[,2:3])
+my.prob <- c(116, 60706)/(60706+116)
+
+
+combined$my.p <- ifelse(my.mat[,1] > 0, pbinom(q = my.mat[,1] - 1, size = my.mat[,1] + my.mat[,2], prob = 116/(116+60706), lower.tail = FALSE), 1)
+combined <- combined[order(combined$my.p), ]
+
+#### save results in csv file
+
+write.csv(combined, "//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/ARVC_analysis/pvalues_missense_lof_arvc_vs_exac.csv")
