@@ -1,5 +1,5 @@
 # this script is for running a gene burden test on missense and LOF variants (stop_gain only) between ARVC probands and ExAC database
-## the datasets were already filtered for LOF and frequency using VEP software
+
 
 
 
