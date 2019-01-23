@@ -3,11 +3,11 @@
 
 ### load the cases dataset (this contains a count of rare and novel variants according to ESP frequencies, per gene)
 
-arvc_cases <- read.table ("//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/ARVC_probands_missense_and_lof.txt", header = TRUE, fill = TRUE)
+arvc_cases <- read.table ("//ad.ucl.ac.uk/home/rmgphal/DesktopSettings/Desktop/ARVC_probands_missense_and_lof.txt", header = TRUE, fill = TRUE)
 
-#### now load the controls (note that the data is in different format)
+#### now load the controls 
 
-controls <- read.table("//ad.ucl.ac.uk/home/ucbtmzf/DesktopSettings/Desktop/EXAC_rare_novel_missense_for_R4.txt", header = TRUE, fill = TRUE, row.names=NULL)
+controls <- read.table("//ad.ucl.ac.uk/home/rmgphal/DesktopSettings/Desktop/EXAC_rare_novel_missense_for_R4.txt", header = TRUE, fill = TRUE, row.names=NULL)
 
 #### count LOF variants per each gene for cases and controls
 
